@@ -1,5 +1,5 @@
-import { InfiniteEntity } from './base-entity';
-import { User } from './login';
+import { InfiniteEntity, Pagination } from './base-entity';
+import { User } from './user';
 
 export type RootObject = {
   posts: InfiniteEntity<Post[]>;
@@ -19,5 +19,6 @@ export type Post = {
 export type Author = User;
 
 export type Feed = {
-  items: InfiniteEntity<Post[]>;
+  items: Post[];
+  pagination: Pagination;
 };
