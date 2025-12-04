@@ -1,4 +1,4 @@
-import { Entity } from './base-entity';
+import { Entity, PatchEntity } from './base-entity';
 
 export type User = {
   name: string;
@@ -8,7 +8,7 @@ export type User = {
   avatarUrl: string;
 };
 
-export type profilePatchPayload = Entity<User & { bio: string }>;
+export type ProfilePatch = PatchEntity<User & { bio: string }>;
 
 export type Profile = {
   profile: Entity<User & { bio: string }>;

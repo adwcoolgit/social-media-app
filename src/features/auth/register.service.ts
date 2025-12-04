@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginTokenStorageKey, loginUserStorageKey } from './login.service';
 import axios from 'axios';
 import { User } from '@/types/user';
-import { getUserQueryKey } from './me.service';
+import { getUserQueryKey } from '../my-profile/me.service';
 
 export async function registerService(
   params: RegisterPayload
@@ -41,7 +41,7 @@ export const useRegister = (params: UseRegisterParam = {}) => {
 
       localStorage.setItem(JSON.stringify(data), loginUserStorageKey());
       localStorage.setItem(data.token, loginTokenStorageKey());
-      queryClient.setQueryData<User>(getUserQueryKey, data.user);
+      queryClient.setQueryData<User>(getUserQueryKey(), data.user);
 
       dispatch(IsRegister(true));
 

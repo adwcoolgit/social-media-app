@@ -2,12 +2,21 @@ import { Author } from './post';
 
 export type BaseEntity = {
   id: string;
-  createdAt: number;
+  createdAt: string;
+};
+
+export type BasePatchEntity = {
+  id: string;
+  updateAt: string;
 };
 
 export type Entity<T> = {
   [K in keyof T]: T[K];
 } & BaseEntity;
+
+export type PatchEntity<T> = {
+  [K in keyof T]: T[K];
+} & BasePatchEntity;
 
 export type InfiniteEntity<T> = {
   [K in keyof T]: T[K];
