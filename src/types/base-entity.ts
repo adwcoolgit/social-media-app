@@ -47,3 +47,8 @@ export type Comments = {
 export type data = {
   datas: Comments;
 };
+
+export type ServiceProps = {
+  page: number;
+  limit: number;
+};

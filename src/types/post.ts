@@ -22,3 +22,7 @@ export type Feed = {
   items: Post[];
   pagination: Pagination;
 };
+
+export type DeleteStatus = {
+  deleted: boolean;
+};

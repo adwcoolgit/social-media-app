@@ -1,6 +1,7 @@
-import { Entity, PatchEntity } from './base-entity';
+import { PatchEntity } from './base-entity';
 
 export type User = {
+  is: number;
   name: string;
   username: string;
   email: string;
@@ -11,7 +12,7 @@ export type User = {
 export type ProfilePatch = PatchEntity<User & { bio: string }>;
 
 export type Profile = {
-  profile: Entity<User & { bio: string }>;
+  profile: User & { bio: string };
   stats: Stats;
 };
 

@@ -4,18 +4,18 @@ import { ServiceProps } from '@/types/base-entity';
 import { Feed } from '@/types/post';
 import { infiniteQueryOptions } from '@tanstack/react-query';
 
-export async function myPostService(params: ServiceProps): Promise<Feed> {
-  const { data } = await axiosInstance.get<Feed>('/api/me/posts', { params });
+export async function feedsService(params: ServiceProps): Promise<Feed> {
+  const { data } = await axiosInstance.get<Feed>('/api/feed', { params });
 
   return data;
 }
 
-export const infinitesMyPostQueryOption = (params: ServiceProps) => {
+export const infinitesFeedsQueryOption = (params: ServiceProps) => {
   return infiniteQueryOptions({
-    queryKey: myPostQueryKey(params),
+    queryKey: feedsQueryKey(params),
     queryFn: ({ pageParam = 1 }) => {
       params.page = pageParam;
-      return myPostService(params);
+      return feedsService(params);
     },
     getNextPageParam: (lastPage) => {
       if (lastPage?.pagination?.page === lastPage?.pagination?.totalPages)
@@ -27,10 +27,10 @@ export const infinitesMyPostQueryOption = (params: ServiceProps) => {
   });
 };
 
-export type UseMyPostParams = {
-  queryConfig?: InfiniteQueryConfig<typeof infinitesMyPostQueryOption>;
+export type UseFeedsParams = {
+  queryConfig?: InfiniteQueryConfig<typeof infinitesFeedsQueryOption>;
   params: ServiceProps;
 };
 
-export const myPostStorageKey = () => 'myPost';
-export const myPostQueryKey = (params: ServiceProps) => ['myPost', params];
+export const feedsStorageKey = () => 'feeds';
+export const feedsQueryKey = (params: ServiceProps) => ['feeds', params];
