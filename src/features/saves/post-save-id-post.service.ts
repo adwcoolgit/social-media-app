@@ -4,13 +4,11 @@ import { setToast } from '@/states/slices/uiSlice';
 import { useDispatch } from 'react-redux';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { DeleteStatus } from '@/types/post';
+import { Saved } from './type';
 
-export async function unLikePostService(id: number): Promise<DeleteStatus> {
+export async function savedService(id: number): Promise<Saved> {
   try {
-    const { data } = await axiosInstance.post<DeleteStatus>(
-      `/api/posts/${id}/like`
-    );
+    const { data } = await axiosInstance.post<Saved>(`/api/posts/${id}/save`);
 
     return data;
   } catch (error) {
@@ -18,15 +16,15 @@ export async function unLikePostService(id: number): Promise<DeleteStatus> {
   }
 }
 
-type UseUnLikePostParams = {
-  mutationConfig?: MutationConfig<typeof unLikePostService>;
+type UseSavedParams = {
+  mutationConfig?: MutationConfig<typeof savedService>;
 };
 
-export const useUnLikedPost = (params: UseUnLikePostParams = {}) => {
+export const useSavedPost = (params: UseSavedParams = {}) => {
   const dispatch = useDispatch();
 
   return useMutation({
-    mutationFn: unLikePostService,
+    mutationFn: savedService,
     ...params.mutationConfig,
     onSuccess: (data, variable, onMutateResult, context) => {
       if (!data) return;

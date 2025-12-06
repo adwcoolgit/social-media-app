@@ -34,20 +34,6 @@ export type Likes = {
   likeCount: number;
 };
 
-export type Comment = Entity<{
-  text: string;
-  author: Author;
-  isMine: boolean;
-}>;
-
-export type Comments = {
-  comments: InfiniteEntity<Comment[]>;
-};
-
-export type data = {
-  datas: Comments;
-};
-
 export type ServiceProps = {
   page: number;
   limit: number;

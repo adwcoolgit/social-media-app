@@ -6,10 +6,10 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { DeleteStatus } from '@/types/post';
 
-export async function unLikePostService(id: number): Promise<DeleteStatus> {
+export async function unFollowService(username: string): Promise<DeleteStatus> {
   try {
     const { data } = await axiosInstance.post<DeleteStatus>(
-      `/api/posts/${id}/like`
+      `/api/follow/${username}`
     );
 
     return data;
@@ -18,15 +18,15 @@ export async function unLikePostService(id: number): Promise<DeleteStatus> {
   }
 }
 
-type UseUnLikePostParams = {
-  mutationConfig?: MutationConfig<typeof unLikePostService>;
+type UseUnFollowParams = {
+  mutationConfig?: MutationConfig<typeof unFollowService>;
 };
 
-export const useUnLikedPost = (params: UseUnLikePostParams = {}) => {
+export const useUnFollow = (params: UseUnFollowParams = {}) => {
   const dispatch = useDispatch();
 
   return useMutation({
-    mutationFn: unLikePostService,
+    mutationFn: unFollowService,
     ...params.mutationConfig,
     onSuccess: (data, variable, onMutateResult, context) => {
       if (!data) return;

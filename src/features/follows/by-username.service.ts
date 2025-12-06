@@ -4,12 +4,12 @@ import { setToast } from '@/states/slices/uiSlice';
 import { useDispatch } from 'react-redux';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { DeleteStatus } from '@/types/post';
+import { Follow } from './type';
 
-export async function unLikePostService(id: number): Promise<DeleteStatus> {
+export async function userFollowService(username: string): Promise<Follow> {
   try {
-    const { data } = await axiosInstance.post<DeleteStatus>(
-      `/api/posts/${id}/like`
+    const { data } = await axiosInstance.post<Follow>(
+      `/api/follow/${username}`
     );
 
     return data;
@@ -18,15 +18,15 @@ export async function unLikePostService(id: number): Promise<DeleteStatus> {
   }
 }
 
-type UseUnLikePostParams = {
-  mutationConfig?: MutationConfig<typeof unLikePostService>;
+type UseUserFollowParams = {
+  mutationConfig?: MutationConfig<typeof userFollowService>;
 };
 
-export const useUnLikedPost = (params: UseUnLikePostParams = {}) => {
+export const useUserFollow = (params: UseUserFollowParams = {}) => {
   const dispatch = useDispatch();
 
   return useMutation({
-    mutationFn: unLikePostService,
+    mutationFn: userFollowService,
     ...params.mutationConfig,
     onSuccess: (data, variable, onMutateResult, context) => {
       if (!data) return;
