@@ -6,7 +6,7 @@ import { LoginResponse } from '@/types/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/states/store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { IsRegister } from '@/states/slices/authSlice';
+import { IsLogin, IsRegister } from '@/states/slices/authSlice';
 import axios from 'axios';
 
 export async function loginService(
@@ -28,7 +28,7 @@ type UseLoginParams = {
   mutationConfig?: MutationConfig<typeof loginService>;
 };
 
-export const useRegister = (params: UseLoginParams = {}) => {
+export const useLogin = (params: UseLoginParams = {}) => {
   const isRegister = useSelector((state: RootState) => state.auth.isRegister);
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ export const useRegister = (params: UseLoginParams = {}) => {
       localStorage.setItem(JSON.stringify(data), loginUserStorageKey());
       localStorage.setItem(data.token, loginTokenStorageKey());
 
-      dispatch(IsRegister(true));
+      dispatch(IsLogin(true));
       queryClient.invalidateQueries({ queryKey: ['me'] });
 
       return {

@@ -2,19 +2,23 @@ import { axiosInstance } from '@/lib/axios';
 import { InfiniteQueryConfig } from '@/lib/react-query';
 import { infiniteQueryOptions } from '@tanstack/react-query';
 import { Users } from './type';
-import { ServiceProps } from '@/types/base-entity';
+import { ApiResponse, ServiceProps } from '@/types/base-entity';
+import { User } from '@/types/user';
 
-interface IServiceProps extends ServiceProps {
+export interface IServiceProps extends ServiceProps {
   q: string;
 }
 export async function searchUsersService(
   params: IServiceProps
 ): Promise<Users> {
-  const { data } = await axiosInstance.get<Users>(`/api/users/search`, {
-    params,
-  });
+  const { data } = await axiosInstance.get<ApiResponse<Users>>(
+    `/api/users/search`,
+    {
+      params,
+    }
+  );
 
-  return data;
+  return data.data as Users;
 }
 
 export const infinitesUsersQueryOption = (params: IServiceProps) => {

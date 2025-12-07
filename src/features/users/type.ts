@@ -1,6 +1,5 @@
 import { Pagination } from '@/types/base-entity';
 import { Post } from '@/types/post';
-import { User } from '@/types/user';
 import { Stats } from 'fs';
 
 export type Likes = {
@@ -18,4 +17,12 @@ export type UserProfile = {
   counts: Stats;
   isFollowing: boolean;
   isMe: boolean;
+};
+
+export type User = {
+  id: number;
+  username: string;
+  name: string;
+  avatarUrl: undefined | string;
+  isFollowedByMe: boolean;
 };

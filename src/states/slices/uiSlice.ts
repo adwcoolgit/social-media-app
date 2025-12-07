@@ -1,11 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export type AuthDialog = 'REGISTER' | 'LOG_IN' | undefined;
+
 interface UIState {
   toastMessage: string;
+  authDialog: AuthDialog;
+  menu: boolean;
+  search: boolean;
+  searching: boolean;
+  querySearch: string;
 }
 
 const initialState: UIState = {
   toastMessage: '',
+  authDialog: undefined,
+  menu: false,
+  search: false,
+  searching: false,
+  querySearch: '',
 };
 
 const uiSlice = createSlice({
@@ -18,8 +30,31 @@ const uiSlice = createSlice({
     clearToast: (state) => {
       state.toastMessage = '';
     },
+    setDialog: (state, action: PayloadAction<AuthDialog>) => {
+      state.authDialog = action.payload;
+    },
+    isVisibleMenu: (state, action: PayloadAction<boolean>) => {
+      state.menu = action.payload;
+    },
+    isVisibleSearch: (state, action: PayloadAction<boolean>) => {
+      state.search = action.payload;
+    },
+    isSearching: (state, action: PayloadAction<boolean>) => {
+      state.searching = action.payload;
+    },
+    searchUsers: (state, action: PayloadAction<string>) => {
+      state.querySearch = action.payload;
+    },
   },
 });
 
-export const { setToast, clearToast } = uiSlice.actions;
+export const {
+  setToast,
+  clearToast,
+  setDialog,
+  isVisibleMenu,
+  isVisibleSearch,
+  isSearching,
+  searchUsers,
+} = uiSlice.actions;
 export default uiSlice.reducer;

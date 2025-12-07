@@ -1,5 +1,3 @@
-import { Author } from './post';
-
 export type BaseEntity = {
   id: string;
   createdAt: string;
@@ -37,4 +35,9 @@ export type Likes = {
 export type ServiceProps = {
   page: number;
   limit: number;
+};
+
+export type ApiResponse<T> = {
+  success: string;
+  data: T;
 };
